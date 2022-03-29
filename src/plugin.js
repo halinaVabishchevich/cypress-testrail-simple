@@ -178,16 +178,14 @@ function getTestComments(caseId, displayError) {
 
     return formatComment(displayError, comment)
   } catch (err) {
-    console.log('Error on adding screenshots', err)
+    console.log('Error on adding screenshots', err.message)
     return formatComment(displayError)
   }
 }
 
 function formatComment(displayError, comment = '') {
-  return `Error:
-  ${displayError}
-  Test body:
-  ${comment}`
+  return `${comment}
+  ${displayError}`
 }
 
 module.exports = registerPlugin
