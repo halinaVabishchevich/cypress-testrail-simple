@@ -1,4 +1,4 @@
-// / <reference types="cypress" />
+/// <reference types="cypress" />
 
 // @ts-check
 const debug = require('debug')('cypress-testrail-simple')
@@ -159,7 +159,12 @@ function registerPlugin(on, skipPlugin = false) {
       console.log('TestRail results in %s', spec.relative)
       console.table(testRailResults, ['case_id', 'status_id'])
 
-      return sendTestResults(testRailInfo, runId, testRailResults)
+      return sendTestResults(testRailInfo, runId, testRailResults).catch(
+        (err) => {
+          console.error('Error sending TestRail results')
+          console.error(err)
+        },
+      )
     }
   })
 }
