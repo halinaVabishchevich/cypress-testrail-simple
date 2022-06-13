@@ -178,9 +178,6 @@ async function registerPlugin(on, config, skipPlugin = false) {
         if (caseIds.length && !caseIds.includes(case_id)) {
           debug('case %d is not in test run %d', case_id, runId)
         } else {
-          console.log(testRailResult.status_id)
-          console.log(defaultStatus.failed )
-          console.log(result.displayError)
           if (testRailResult.status_id === defaultStatus.failed ) {
             testRailResult.comment = getTestComments(case_id, result.displayError)
           }
@@ -204,10 +201,13 @@ async function registerPlugin(on, config, skipPlugin = false) {
 function getTestComments(caseId, displayError) {
   try {
     const files = find.fileSync('./cypress/logs/')
+    console.log("files")
+    console.log(files)
     const logs = files.find((file) => file.includes(`${caseId}`))
     const contents = fs.readFileSync(logs)
     const jsonContent = JSON.parse(contents)
-    console.log(jsonContent)
+    console.log("cont")
+    console.log(files)
     const comment = jsonContent.testCommands.join('\r\n')
 
     return formatComment(displayError, comment)
