@@ -201,12 +201,9 @@ async function registerPlugin(on, config, skipPlugin = false) {
 function getTestComments(caseId, displayError) {
   try {
     const files = find.fileSync('./cypress/logs/')
-    console.log("files")
-    console.log(files)
     const logs = files.find((file) => file.includes(`${caseId}`))
     const contents = fs.readFileSync(logs)
     const jsonContent = JSON.parse(contents)
-    console.log("cont")
     console.log(files)
     const comment = jsonContent.testCommands.join('\r\n')
 
